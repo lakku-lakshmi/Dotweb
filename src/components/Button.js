@@ -2,7 +2,7 @@ import { pink } from "@mui/material/colors";
 import { height } from "@mui/system";
 import React from "react";
 
-export const Button=({title})=>{
+export const Button=({title,onClickHandler})=>{
     return (
         <button
           style={{
@@ -12,6 +12,7 @@ export const Button=({title})=>{
             
           }
         }
+        onClick={onClickHandler}
         >
         {title}
         </button>
