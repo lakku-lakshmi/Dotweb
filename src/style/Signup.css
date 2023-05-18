@@ -1,0 +1,57 @@
+
+.main-login-container{
+    width: 90%;
+    height:90%;
+    /* background-color: green; */
+    margin:50px;
+    position: relative;
+    overflow: hidden;
+    position:fixed
+}
+/* width:px;
+    height: 700px;
+    position: relative;
+    background-color: white;
+    background-color: rgb(218, 130, 144);
+    margin-top: 5%;
+    margin-left:35%; */
+.about-container{
+    width:50%;
+    height: 100%;
+    position: absolute;
+    background-color:rgb(93, 168, 198);
+    left:0;
+}
+.about{
+   margin:30px;
+}
+p{
+    color:white;
+    font-size:larger;
+}
+h2{
+    color:white; 
+}
+h1{
+    color:white;
+    text-align: center;
+}
+.login-container{
+    width:50%;
+    height: 100%;
+    position: absolute; 
+     /*relate to outer*/
+    background-color:white;
+    right:0;
+}
+.inputs{
+    margin-bottom:50px;
+}
+.sub-button{
+    display:flex;
+    justify-content: center;
+}
+.container{
+    margin:50px;
+}
+
