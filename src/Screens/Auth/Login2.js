@@ -7,20 +7,24 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import React, { useRef } from 'react';
 import ReCAPTCHA from "react-google-recaptcha"
 import axios from 'axios';
+import {useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import user from "../../../server/model/user";
 
 export const Login2=()=>{
+    const navigate=useNavigate();
     const captchaRef = useRef(null)
     const [userdetails,setUserdetails]=React.useState({
         username: "",
         password: "",
       });
+      console.log("initial----------",userdetails)
       const changeHandler = (e) => {
-      
             setUserdetails({ ...userdetails,[e.target.name]: e.target.value });
           }
            
     const handleSubmit = async (e) =>{
-        console.log(",,,,,,,,,,,",userdetails)
+        console.log("final,,,,,,,,,,,",userdetails)
         e.preventDefault();
         // const username= await e.target.value;
         // console.log(username)
@@ -28,12 +32,13 @@ export const Login2=()=>{
         // console.log("......",username)
         const token = captchaRef.current.getValue();
         captchaRef.current.reset();
-
+      
         await axios.post("http://localhost:2000/post",{token})
-        .then(res =>  console.log(res))
+        .then(res =>  console.log(res.data))
         .catch((error) => {
         console.log(error);
         })
+        navigate("fetchDetails")
     }
     return (
         <div className="main-container">
@@ -65,10 +70,11 @@ export const Login2=()=>{
             <div>
               <a href="#">Forgot password</a>
             </div>
-            <Button
+            <Link to="/fetchDetails">{<Button
                 title="login"
                 onClickHandler={handleSubmit}
-            />
+            />}
+            </Link>
             <div>
                 <h4>or signup using</h4>
                 < FacebookIcon
