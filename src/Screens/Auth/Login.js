@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import '../../style/Signup.css';
+import '../../style/Login1.css';
 // import GoogleIcon from '@mui/icons-material/Google';
 import {Button} from "../../components/Button"
 // import { GoogleLogin } from '@react-oauth/google';

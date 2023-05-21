@@ -11,6 +11,7 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
 
 
  export const TableDetails =() => {
+  console.log("tableejsjdfhdjfjdbf")
   const [input,setInput]=useState(null)
   const [editId, setEditId] = useState(false);
   const [data,setData]=useState([
@@ -18,7 +19,7 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
     {username:"nmklkjh",email:"ddfs,",password:"hbdjskma"},
     {username:"hjdk",email:"dhjks",password:"fghnb"},
 ]);
-  const [deleteId,setDeleteId]=React.useState(null)
+  const [deleteId,setDeleteId]=(null)
   const [editFormData,setEditFormData]=useState({
     username:"",
     email:"",
@@ -40,16 +41,15 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
   const handleCancel=()=>{
     setEditId(null)
   }
-  const handleDelete=(e,val)=>{
-    e.preventDefault();
-    setDeleteId(val._id)
-    console.log("deleteeeeeeeeeeeeeeeeeee",val._id)
-    axios.delete("http://localhost:2000/editDetails",{data:deleteId})
-    .then(res=>{
-      setData(res.data.data)   
-      setDeleteId(null)
-    })
-  }
+
+  // const handleDelete=(e,val)=>{
+  //   setDeleteId(val._id)
+  //   axios.delete("http://localhost:2000/editDetails",{deleteId})
+  //   .then(res=>{
+  //     setData(res.data.data)   
+  //     setDeleteId(null)
+  //   })
+  // }
 
   const handleEditFormChange=(e,editFormData)=>{
     e.preventDefault();
@@ -76,6 +76,7 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
   }
   React.useEffect(
     ()=>{
+             console.log("==============")
              axios.get("http://localhost:2000/fetchDetails")
              .then(res=>{
               console.log(res.data.data)
@@ -84,25 +85,25 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
              })              
     },[]
   )
-  const updateInput = async (input) => {
-    console.log("onchange.........",input);
-    const filtered = data.filter(user_data => {
-     return user_data.username.toLowerCase().includes(input.toLowerCase())
-    })
-    console.log("++++++",filtered)
-    setData(filtered);
-    if(!input){
-      console.log("==============")
-      axios.get("http://localhost:2000/fetchDetails")
-      .then(res=>{
-       setData(res.data.data);
-      })  
-    }
- }
- function onChange(e){
-  console.log(".....coming");
-  updateInput(e.target.value)
- }
+//   const updateInput = async (input) => {
+//     console.log("onchange.........",input);
+//     const filtered = data.filter(user_data => {
+//      return user_data.username.toLowerCase().includes(input.toLowerCase())
+//     })
+//     console.log("++++++",filtered)
+//     setData(filtered);
+//     if(!input){
+//       console.log("==============")
+//       axios.get("http://localhost:2000/fetchDetails")
+//       .then(res=>{
+//        setData(res.data.data);
+//       })  
+//     }
+//  }
+//  function onChange(e){
+//   console.log(".....coming");
+//   updateInput(e.target.value)
+//  }
     return (
         <>
       <div className='work-table-container'>
@@ -134,7 +135,7 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
                   <ReadOnlyRow
                      val={val}
                      handleEdit={handleEdit}
-                     handleDelete={handleDelete}
+                    //  handleDelete={handleDelete}
                   />
                   // <tr>
                   // <td>{val.username}</td>

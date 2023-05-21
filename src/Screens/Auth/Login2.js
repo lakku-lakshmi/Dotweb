@@ -26,10 +26,6 @@ export const Login2=()=>{
     const handleSubmit = async (e) =>{
         console.log("final,,,,,,,,,,,",userdetails)
         e.preventDefault();
-        // const username= await e.target.value;
-        // console.log(username)
-        // const username="hello"
-        // console.log("......",username)
         const token = captchaRef.current.getValue();
         captchaRef.current.reset();
       

@@ -19,8 +19,10 @@ app.use("/", router);
 
 //POST route
 router.put("/editDetails",async(req,res)=>{
-   const {id,change_data}=req.body;
-    await user.findbyIdAndUpdate({id},{change_data});
+  const {editId,newData}=req.body;
+   console.log(".........",newData,editId)
+   var h='64688439844bead05996f407';
+    const k=await user.findByIdAndUpdate({_id:editId},newData);
     const details=await user.find({});
     return res.status(200).send({
       msg: "details updated successfully",
@@ -28,9 +30,22 @@ router.put("/editDetails",async(req,res)=>{
       statusCode: "0000001",
     });
 })
+router.delete("/editDetails",async(req,res)=>{
+  // const {data}=req.body;
+   console.log(".........",req.body.deleteId)
+    const k=await user.findByIdAndDelete(deleteId);
+    const details=await user.find({});
+    // console.log("++++++",details)
+    return res.status(200).send({
+      msg: "details updated successfully",
+      data: details,
+      statusCode: "0000001",
+    });
+})
 router.get("/fetchDetails",async(req,res)=>{
+  console.log("hihihijhhhhhhhh")
   const details=await user.find({});
-  console.log(".......",details)
+  console.log("...det....",details)
   return res.status(200).send({
     msg: "details fetched successfully",
     data: details,
@@ -42,8 +57,6 @@ router.post("/post", async (req, res) => {
 
     ////Destructuring response token and input field value from request body
     const { token,userdetails} = req.body;
-    console.log("hiiiiiiiiiiiiiiii",token)
-    console.log(".......",process.env.REACT_APP_SECRET_KEY)
     try {
         
       // Sending secret key and response token to Google Recaptcha API for authentication.
