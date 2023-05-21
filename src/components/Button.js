@@ -8,7 +8,7 @@ export const Button=({title,onClickHandler})=>{
           style={{
             backgroundColor:"skyblue",
             height:"50px",
-            width:"50%",
+            width:"400px",
             
           }
         }

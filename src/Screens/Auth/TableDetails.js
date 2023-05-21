@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Visibility,Edit } from '@mui/icons-material'
 import { useAsyncValue } from 'react-router-dom';
+import {SearchBar} from "../../components/SearchBar";
 import axios, * as others from 'axios';
 // import "../Assets/Style/Table.css";
 // import '../Assets/Style/EditPopup.css'
@@ -17,21 +18,39 @@ import axios, * as others from 'axios';
 //   const [Filter,setFilter]=useState(false)
 //   const [openPopup,setOpenPopup]=useState(false);
   
-  
-  const [data,setData]=useState([
-    {username:"lakshmi",email:"lakku@gamil.com",password:"12345"},
-    {username:"nmklkjh",email:"ddfs,",password:"hbdjskma"},
-    {username:"hjdk",email:"dhjks",password:"fghnb"},
-  ])
-
+  const [input,setInput]=useState('')
+  const [edit, setEdit] = useState(false);
+  const [data,setData]=useState([]);
+  const handleEdit = async() => {
+    setEdit(!edit);
+  };
   React.useEffect(
     ()=>{
              axios.get("http://localhost:2000/fetchDetails")
              .then(res=>{
               setData(res.data.data);
-             })          
-    }
+             })              
+    },[]
   )
+  const updateInput = async (input) => {
+    console.log("onchange.........",input);
+    const filtered = data.filter(user_data => {
+     return user_data.username.toLowerCase().includes(input.toLowerCase())
+    })
+    console.log("++++++",filtered)
+    setData(filtered);
+    if(!input){
+      console.log("==============")
+      axios.get("http://localhost:2000/fetchDetails")
+      .then(res=>{
+       setData(res.data.data);
+      })  
+    }
+ }
+ function onChange(e){
+  console.log(".....coming");
+  updateInput(e.target.value)
+ }
   // const res=await axios.get("http://localhost:2000/fetchDetails");
   // console.log(".....",res.msg);
   // setData([res.data])
@@ -58,6 +77,11 @@ import axios, * as others from 'axios';
     return (
         <>
       <div className='work-table-container'>
+        <SearchBar
+         input={input} 
+         onChange={onChange}
+         placeholder="search username"
+        />
         <table style={{position:"relative",marginTop:"0rem"}}>
           <thead>
             <tr>
@@ -82,7 +106,7 @@ import axios, * as others from 'axios';
               />
                
                   <Edit 
-                   //onClick={togglePopup} className="status-elements-edit" 
+                   onClick={handleEdit} 
                   />
                   
               </td>

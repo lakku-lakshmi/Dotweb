@@ -18,6 +18,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", router);
 
 //POST route
+router.put("/editDetails",async(req,res)=>{
+   const {id,change_data}=req.body;
+    await user.findbyIdAndUpdate({id},{change_data});
+    const details=await user.find({});
+    return res.status(200).send({
+      msg: "details updated successfully",
+      data: details,
+      statusCode: "0000001",
+    });
+})
 router.get("/fetchDetails",async(req,res)=>{
   const details=await user.find({});
   console.log(".......",details)

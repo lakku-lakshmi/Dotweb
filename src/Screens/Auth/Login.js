@@ -1,17 +1,61 @@
 import TextField from "@mui/material/TextField";
 import '../../style/Signup.css';
-import GoogleIcon from '@mui/icons-material/Google';
+// import GoogleIcon from '@mui/icons-material/Google';
 import {Button} from "../../components/Button"
-import { GoogleLogin } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
+import { useLocation, useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import React from 'react';
 import axios from 'axios';
+// import {Logged_user} from "../../components/Logged_user";
 export const Login=()=>{
-    
-    // const login = useGoogleLogin({
-    //     onSuccess: (response) => setUserInfo(response),
-    //     onError: (error) => console.log(`Login Failed: ${error}`, )
-    // });
+    let navigate=useNavigate();
+    //handles token
+    const [userInfo, setUserInfo] = React.useState([]
+    );
+    //handles details of user we get after making api request
+    const [profileInfo, setProfileInfo] = React.useState({});
+    const login = useGoogleLogin({
+        onSuccess:(response)=>{console.log("========",{response});
+         setUserInfo(response);
+         
+    },
+        onError: (error) => console.log(`Login Failed: ${error}`, )
+    });
+    const logOut = () => {
+        console.log("outttttt");
+        googleLogout();
+        setProfileInfo(null);
+    };
+    React.useEffect(
+        () => {
+            if (userInfo) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userInfo.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${userInfo.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((response) => {
+                        console.log("------response.data",response.data);
+                        setProfileInfo(response.data);
+                        console.log("......profileinfo",response.data.email)
+                        navigate("logged-user",{
+                            state:{
+                                 "name": response.data.name,
+                                "email":response.data.email,
+                                // onClick:{logOut}
+                            }
+                        }
+                    )
+                    
+                })
+                    .catch((error) => console.log(error));
+            }
+        },
+        [ userInfo ]
+    );
     return (
         <div className="main-login-container">
         <div className="about-container">
@@ -28,11 +72,34 @@ export const Login=()=>{
         <div className="login-container">  
         <div className="container">
         <div className="gconnect">
-            <h4>--------Easily using--------</h4>
+            <h4>----------------------------Easily using-----------------------</h4>
             <div>
-            {/* <GoogleLogin onSuccess={responseOutput} onError={errorOutput}/> */}
+                {/* { profileInfo ? (
+                    navigate("logged-user",{
+                        state:{
+                            // name: userInfo.name,
+                            // email:userInfo.email,
+                            // // image:userInfo.picture,
+                            // onClick:{logOut}
+                            profileInfo
+                        }
+                    })
+            // <Logged_user
+            // name={userInfo.name}
+            // email={userInfo.email}
+            // onClick={logOut}
+            // image={userInfo.picture}
+            // />
+                )
+                :( */}
+                    <Button 
+                    title="Sign in with Google"
+                    onClickHandler={login}
+                     />
+        {/* )
+                } */}
             </div>
-            <h4>------or using Account details------</h4>
+            <h4>-------------------------or using Account details-----------------</h4>
         </div>
         <div className="inputs">
             <TextField 
@@ -58,9 +125,11 @@ export const Login=()=>{
             <div>
                 <a href="#">Forgot password</a>
             </div>
-            <Button
+            <div>
+      <Button
                title="Login"
             />
+            </div>
             <h5>-------New to Rental App?-------</h5>
             <Button
                title="Register"
