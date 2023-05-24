@@ -9,7 +9,7 @@ export const Button=({title,onClickHandler})=>{
             backgroundColor:"skyblue",
             height:"50px",
             width:"400px",
-            
+            color:"white"        
           }
         }
         onClick={onClickHandler}

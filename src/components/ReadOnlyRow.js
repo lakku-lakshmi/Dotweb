@@ -1,5 +1,7 @@
 import React from 'react';
 import { Visibility,Edit } from '@mui/icons-material'
+import "../style/TableDetails.css";
+
 
 export const ReadOnlyRow=({val,handleEdit,handleDelete})=>{
     console.log("======",val)

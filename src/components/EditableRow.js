@@ -1,4 +1,5 @@
 import React from 'react';
+import "../style/TableDetails.css";
 
 export const EditableRow=({editFormData,handleEditFormChange,handleEditSubmit,handleCancel})=>{
     return(

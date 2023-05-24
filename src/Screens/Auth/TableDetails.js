@@ -6,7 +6,7 @@ import axios, * as others from 'axios';
 import { Fragment } from 'react';
 import {EditableRow} from '../../components/EditableRow'; 
 import {ReadOnlyRow} from '../../components/ReadOnlyRow';
-
+import "../../style/TableDetails.css";
 
 
 
@@ -14,9 +14,6 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
   const [input,setInput]=useState(null)
   const [editId, setEditId] = useState(false);
   const [data,setData]=useState([
-    {username:"lakshmi",email:"lakku@gamil.com",password:"12345"},
-    {username:"nmklkjh",email:"ddfs,",password:"hbdjskma"},
-    {username:"hjdk",email:"dhjks",password:"fghnb"},
 ]);
   const [deleteId,setDeleteId]=React.useState(null)
   const [editFormData,setEditFormData]=useState({
@@ -100,7 +97,6 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
     }
  }
  function onChange(e){
-  console.log(".....coming");
   updateInput(e.target.value)
  }
     return (
@@ -108,7 +104,7 @@ import {ReadOnlyRow} from '../../components/ReadOnlyRow';
       <div className='work-table-container'>
         <SearchBar
          input={input} 
-        //  onChange={onChange}
+         onChange={onChange}
          placeholder="search username"
         />
         <table style={{position:"relative",marginTop:"0rem"}}>

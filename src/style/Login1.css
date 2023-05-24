@@ -2,25 +2,26 @@
 .main-login-container{
     width: 90%;
     height:90%;
-    /* background-color: green; */
     margin:50px;
     position: relative;
     overflow: hidden;
-    position:fixed
+    position:fixed;
 }
-/* width:px;
-    height: 700px;
-    position: relative;
-    background-color: white;
-    background-color: rgb(218, 130, 144);
-    margin-top: 5%;
-    margin-left:35%; */
+.login1-container{
+        width:50%;
+        height: 100%;
+        top:0;
+        right:0;
+        position: absolute;
+          margin-top: 20px;
+}
 .about-container{
     width:50%;
     height: 100%;
     position: absolute;
     background-color:rgb(93, 168, 198);
     left:0;
+    margin-top: 20px;
 }
 .about{
    margin:30px;
@@ -36,14 +37,6 @@ h1{
     color:white;
     text-align: center;
 }
-.login-container{
-    width:50%;
-    height: 100%;
-    position: absolute; 
-     /*relate to outer*/
-    background-color:white;
-    right:0;
-}
 .inputs{
     margin-bottom:50px;
 }
@@ -51,7 +44,6 @@ h1{
     display:flex;
     justify-content: center;
 }
-.container{
-    margin:50px;
+ .container{
+    margin-left:50px;
 }
-

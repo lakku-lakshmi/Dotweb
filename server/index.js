@@ -43,7 +43,6 @@ router.delete("/editDetails",async(req,res)=>{
     });
 })
 router.get("/fetchDetails",async(req,res)=>{
-  console.log("hihihijhhhhhhhh")
   const details=await user.find({});
   console.log("...det....",details)
   return res.status(200).send({
@@ -52,6 +51,25 @@ router.get("/fetchDetails",async(req,res)=>{
     statusCode: "0000000",
   });
 
+})
+router.post("/login-data",async(req,res)=>{
+const {email,userLogData}=req.body;
+console.log("....email...",email)
+console.log("...userLogData....",userLogData)
+if(userLogData){
+  console.log("-----hi")
+  var data=await user.findOne({username:userLogData.username});
+}
+else{
+  console.log("-----hello");
+var data=await user.findOne({email:email})
+}
+console.log("====data====",data)
+  return res.status(200).send({
+    msg: "details fetched successfully",
+    data: data,
+    statusCode: "0000000",
+  });
 })
 router.post("/post", async (req, res) => {
 
@@ -63,15 +81,18 @@ router.post("/post", async (req, res) => {
       const response = await axios.post(
         `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_SECRET_KEY}&response=${token}`
       );
-      // console.log(response)
-      // Check response status and send back to the client-side
-      if (response.data.success) {
-        res.send("Human 👨 👩");
-      } else {
-        res.send("Robot 🤖");
-      }
+      return res.status(200).send({
+        msg: "details fetched successfully",
+        data: response.data,
+        statusCode: "0000000",
+      });
+    
+      // if (response.data.success) {
+      //   res.send("Human ");
+      // } else {
+      //   res.send("Robot 🤖");
+      // }
     } catch (error) {
-      // Handle any errors that occur during the reCAPTCHA verification process
       console.error(error);
       res.status(500).send("Error verifying reCAPTCHA");
      }
